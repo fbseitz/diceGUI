@@ -13,12 +13,6 @@ canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH, bg='black')
 canvas.pack()
 
 #Get path for image- needed to bundle into one executable. Then, set as PhotoImage for background.
-
-if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-    print('running in a PyInstaller bundle')
-else:
-    print('running in a normal Python process')
-
 relative_path = '\\dice_image.png'
 def img_resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -26,8 +20,6 @@ def img_resource_path(relative_path):
     return base_path
 bgimage = img_resource_path(relative_path)
 
-
-print(bgimage)
 rolldice = tk.PhotoImage(file=bgimage)
 canvas.create_image(350, 300, image=rolldice)
 
