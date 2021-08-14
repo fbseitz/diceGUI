@@ -1,5 +1,6 @@
 import tkinter as tk
 import random
+import matplotlib.pyplot as plt
 
 #Create function to print dice roll result
 def rollresults(dicelist, dicetotal, dicetotaltext, dicerollstext):
@@ -15,9 +16,28 @@ def rollresults(dicelist, dicetotal, dicetotaltext, dicerollstext):
     
     dicerollstext['text'] = dicerollstring.rstrip('\t')
 
-def graphresults():
-    """Function to graph current results of dicerolls"""    
+def graphresults(minresult, maxresult, resultdict):
+    """Function to graph current results of dicerolls"""
+    possiblerange = []
+    actualoutcome = []
+    maxrolled = 0
+    outcomerange = []
+
+    for x in range(minresult, maxresult + 1):
+        possiblerange.append(x)
+        if x in resultdict.keys():
+            actualoutcome.append(resultdict[x])
+            if resultdict[x] > maxrolled:
+                maxrolled = resultdict[x]
+        else:
+            actualoutcome.append(0)
     
+    for x in range(0, maxrolled + 1):
+        outcomerange.append(x)
+    
+    plt.bar(x=possiblerange, height=actualoutcome, tick_label=possiblerange)
+    plt.yticks(outcomerange)
+    plt.show()
 
 #Create function to roll the dice!
 def whaleback(dicenum, dicesides, resultdict, dicetotaltext, dicerollstext):
@@ -54,6 +74,8 @@ def whaleback(dicenum, dicesides, resultdict, dicetotaltext, dicerollstext):
     #Format text representation of result to be displayed in the GUI
     rollresults(dicetotal=dicetotal, dicelist=dicelist, dicetotaltext=dicetotaltext, dicerollstext=dicerollstext)
 
+    #Graph Results
+    graphresults(minresult=minresult, maxresult=maxresult, resultdict=resultdict)
 
 #rolllist = []
 #for x in range(minresult, maxresult+1):
