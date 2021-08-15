@@ -1,6 +1,7 @@
 import tkinter as tk
 import random
 import matplotlib.pyplot as plt
+import os
 
 #Create function to print dice roll result
 def rollresults(dicelist, dicetotal, dicetotaltext, dicerollstext):
@@ -37,7 +38,8 @@ def graphresults(minresult, maxresult, resultdict):
     
     plt.bar(x=possiblerange, height=actualoutcome, tick_label=possiblerange)
     plt.yticks(outcomerange)
-    plt.show()
+    filename = os.path.dirname(__file__) + '//rollhistory'
+    plt.savefig(fname=filename)
 
 #Create function to roll the dice!
 def whaleback(dicenum, dicesides, resultdict, dicetotaltext, dicerollstext):
@@ -76,8 +78,4 @@ def whaleback(dicenum, dicesides, resultdict, dicetotaltext, dicerollstext):
 
     #Graph Results
     graphresults(minresult=minresult, maxresult=maxresult, resultdict=resultdict)
-
-#rolllist = []
-#for x in range(minresult, maxresult+1):
-#rolllist.append({x: resultdict.get(x)})
     

@@ -60,4 +60,6 @@ dicetotaltext.place(relheight=0.5, relwidth=1, relx=0, rely=0)
 dicerollstext= tk.Label(diceresultframe, bg='gold', fg='black', font=('Times', '16'), text='Individual Rolls: ')
 dicerollstext.place(relheight=0.5, relwidth=1, relx=0,rely=0.5)
 
+root.protocol("WM_DELETE_WINDOW", root.quit)
 root.mainloop()
+root.destroy()
