@@ -36,8 +36,10 @@ def graphresults(minresult, maxresult, resultdict):
     for x in range(0, maxrolled + 1):
         outcomerange.append(x)
     
-    plt.bar(x=possiblerange, height=actualoutcome, tick_label=possiblerange)
+    fig, ax = plt.subplots()
+    plt.bar(x=possiblerange, height=actualoutcome, tick_label=possiblerange, color='gold')
     plt.yticks(outcomerange)
+    ax.set_facecolor('black')
     filename = os.path.dirname(__file__) + '//rollhistory'
     plt.savefig(fname=filename)
 
