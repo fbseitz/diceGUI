@@ -69,6 +69,25 @@ dicetotaltext.place(relheight=0.5, relwidth=1, relx=0, rely=0)
 dicerollstext= tk.Label(diceresultframe, bg='gold', fg='black', font=('Times', '16'), text='Individual Rolls: ')
 dicerollstext.place(relheight=0.5, relwidth=1, relx=0,rely=0.5)
 
+#Create a frame for a graph of roll history, and display the chart
+graphframe = tk.Frame(canvas, bg='black')
+graphframe.place(relheight=0.55, relwidth=0.5, relx=0.25, rely=0.4)
+
+graphcanvas = tk.Canvas(graphframe, bg='gold')
+graphcanvas.place(relheight=1, relwidth=1)
+
+roll_path = '\\rollhistory.png'
+def graph_resource_path(roll_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    graph_path = os.path.dirname(__file__) + '\\rollhistory.png'
+    return graph_path
+
+rollchart = graph_resource_path(roll_path)
+chartofrolls = tk.PhotoImage(file=rollchart)
+
+graphcanvas.create_image(300, 200, image=chartofrolls)
+
+#Closing procedure
 root.protocol("WM_DELETE_WINDOW", root.quit)
 root.mainloop()
 root.destroy()

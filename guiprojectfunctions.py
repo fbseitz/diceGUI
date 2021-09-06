@@ -37,11 +37,15 @@ def graphresults(minresult, maxresult, resultdict):
         outcomerange.append(x)
     
     fig, ax = plt.subplots()
-    plt.bar(x=possiblerange, height=actualoutcome, tick_label=possiblerange, color='gold')
+    bargraph = plt.bar(x=possiblerange, height=actualoutcome, tick_label=possiblerange, color='gold')
     plt.yticks(outcomerange)
+    ax.tick_params(axis='x', colors='gold')    
+    ax.tick_params(axis='y', colors='gold')
+    ax.spines['left'].set_color('gold')       
+    ax.spines['bottom'].set_color('gold')    
     ax.set_facecolor('black')
     filename = os.path.dirname(__file__) + '//rollhistory'
-    plt.savefig(fname=filename)
+    plt.savefig(fname=filename, facecolor='black')
 
 #Create function to roll the dice!
 def whaleback(dicenum, dicesides, resultdict, dicetotaltext, dicerollstext):
