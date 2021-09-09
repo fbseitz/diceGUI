@@ -3,7 +3,6 @@ import random
 import matplotlib.pyplot as plt
 import os
 
-#Create function to print dice roll result
 def rollresults(dicelist, dicetotal, dicetotaltext, dicerollstext):
     """Function to format text display of the results of the dice roll"""
     
@@ -19,29 +18,44 @@ def rollresults(dicelist, dicetotal, dicetotaltext, dicerollstext):
 
 def graphresults(minresult, maxresult, resultdict):
     """Function to graph current results of dicerolls"""
+    
+    #Create list of current range of possible dice outcomes, 
+    # and a list of actual number of rolls of each dice possible outcome that has occurred.
     possiblerange = []
-    actualoutcome = []
+    actualoutcomes = []
     maxrolled = 0
-    outcomerange = []
 
     for x in range(minresult, maxresult + 1):
         possiblerange.append(x)
         if x in resultdict.keys():
-            actualoutcome.append(resultdict[x])
+            actualoutcomes.append(resultdict[x])
             if resultdict[x] > maxrolled:
                 maxrolled = resultdict[x]
         else:
-            actualoutcome.append(0)
+            actualoutcomes.append(0)
     
+    #Create a list up to highest number of any result rolled for use with Y ticks in graph.
+    outcomerange = []
     for x in range(0, maxrolled + 1):
         outcomerange.append(x)
     
-    plt.bar(x=possiblerange, height=actualoutcome, tick_label=possiblerange)
+    #Create, format, and save figure.
+    fig, ax = plt.subplots()
+    bargraph = plt.bar(x=possiblerange, height=actualoutcomes, tick_label=possiblerange, color='gold')
+    
     plt.yticks(outcomerange)
+    ax.tick_params(axis='x', colors='gold')    
+    ax.tick_params(axis='y', colors='gold')
+    ax.spines['left'].set_color('gold')       
+    ax.spines['bottom'].set_color('gold')    
+    ax.set_facecolor('black')
+    
     filename = os.path.dirname(__file__) + '//rollhistory'
-    plt.savefig(fname=filename)
 
-#Create function to roll the dice!
+    plt.savefig(fname=filename, facecolor='black')
+    plt.close('all')
+
+#Create function to roll the dice (this doubles as the "main" function, and incorporates the others)
 def whaleback(dicenum, dicesides, resultdict, dicetotaltext, dicerollstext):
     """Function to calculate dice roll and log results"""
     dicetotal = 0
@@ -78,4 +92,3 @@ def whaleback(dicenum, dicesides, resultdict, dicetotaltext, dicerollstext):
 
     #Graph Results
     graphresults(minresult=minresult, maxresult=maxresult, resultdict=resultdict)
-    
