@@ -92,6 +92,3 @@ def whaleback(dicenum, dicesides, resultdict, dicetotaltext, dicerollstext):
 
     #Graph Results
     graphresults(minresult=minresult, maxresult=maxresult, resultdict=resultdict)
-
-    #Reset Canvas
-    
