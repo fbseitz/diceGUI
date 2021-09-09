@@ -50,14 +50,13 @@ resultdict = {}
 rollthedice = tk.Button(canvas, 
                         text='Roll the Dice!', 
                         font=40, 
-                        command=lambda: [clearpic(),
-                                        whaleback(dicenum=get_dicenum, 
+                        command=lambda: [whaleback(dicenum=get_dicenum, 
                                                 dicesides=get_sidenum, 
                                                 resultdict=resultdict, 
                                                 dicetotaltext=dicetotaltext, 
                                                 dicerollstext=dicerollstext), 
-                                        addpic(),
-                                        graphcanvas.create_image(300, 200, image=chartofrolls)],
+                                        addpic(graphcanvas=graphcanvas),
+                                        ],
                         bg='gold', 
                         fg='black')
 rollthedice.place(relheight=0.1, relwidth=0.4, relx=0.3, rely=0.05)
@@ -79,19 +78,10 @@ graphframe.place(relheight=0.55, relwidth=0.5, relx=0.25, rely=0.4)
 graphcanvas = tk.Canvas(graphframe, bg='gold')
 graphcanvas.place(relheight=1, relwidth=1)
 
-roll_path = '\\rollhistory.png'
-def graph_resource_path(roll_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    graph_path = os.path.dirname(__file__) + '\\rollhistory.png'
-    return graph_path
-rollchart = graph_resource_path(roll_path)
-    
+#Set up storage of chart picture and function to asssign to the canvas
 chartofrolls = None
 
-def clearpic():
-    chartofrolls = None
-
-def addpic():
+def addpic(graphcanvas):
     global chartofrolls
     roll_path = '\\rollhistory.png'
     def graph_resource_path(roll_path):
@@ -100,6 +90,7 @@ def addpic():
         return graph_path
     rollchart = graph_resource_path(roll_path)
     chartofrolls = tk.PhotoImage(file=rollchart)
+    graphcanvas.create_image(300, 200, image=chartofrolls)
 
 #Closing procedure
 root.protocol("WM_DELETE_WINDOW", root.quit)
