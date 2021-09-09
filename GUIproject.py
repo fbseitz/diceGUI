@@ -50,11 +50,14 @@ resultdict = {}
 rollthedice = tk.Button(canvas, 
                         text='Roll the Dice!', 
                         font=40, 
-                        command=lambda: whaleback(dicenum=get_dicenum, 
+                        command=lambda: [clearpic(),
+                                        whaleback(dicenum=get_dicenum, 
                                                 dicesides=get_sidenum, 
                                                 resultdict=resultdict, 
                                                 dicetotaltext=dicetotaltext, 
-                                                dicerollstext=dicerollstext),
+                                                dicerollstext=dicerollstext), 
+                                        addpic(),
+                                        graphcanvas.create_image(300, 200, image=chartofrolls)],
                         bg='gold', 
                         fg='black')
 rollthedice.place(relheight=0.1, relwidth=0.4, relx=0.3, rely=0.05)
@@ -69,7 +72,7 @@ dicetotaltext.place(relheight=0.5, relwidth=1, relx=0, rely=0)
 dicerollstext= tk.Label(diceresultframe, bg='gold', fg='black', font=('Times', '16'), text='Individual Rolls: ')
 dicerollstext.place(relheight=0.5, relwidth=1, relx=0,rely=0.5)
 
-#Create a frame for a graph of roll history, and display the chart
+#Create a frame for a graph of roll history, and canvas used to display the chart
 graphframe = tk.Frame(canvas, bg='black')
 graphframe.place(relheight=0.55, relwidth=0.5, relx=0.25, rely=0.4)
 
@@ -81,11 +84,22 @@ def graph_resource_path(roll_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     graph_path = os.path.dirname(__file__) + '\\rollhistory.png'
     return graph_path
-
 rollchart = graph_resource_path(roll_path)
-chartofrolls = tk.PhotoImage(file=rollchart)
+    
+chartofrolls = None
 
-graphcanvas.create_image(300, 200, image=chartofrolls)
+def clearpic():
+    chartofrolls = None
+
+def addpic():
+    global chartofrolls
+    roll_path = '\\rollhistory.png'
+    def graph_resource_path(roll_path):
+        """ Get absolute path to resource, works for dev and for PyInstaller """
+        graph_path = os.path.dirname(__file__) + '\\rollhistory.png'
+        return graph_path
+    rollchart = graph_resource_path(roll_path)
+    chartofrolls = tk.PhotoImage(file=rollchart)
 
 #Closing procedure
 root.protocol("WM_DELETE_WINDOW", root.quit)
