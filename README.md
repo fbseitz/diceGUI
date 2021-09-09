@@ -7,4 +7,4 @@ The current plan is to revise future versions of this to add an updating graph o
 
 ***9/9/21 Update***
 
-The updated version of this project incorportating the dice roll history as a graph in the GUI is now live. This has not been redone as a standalone executable, but should work in a code editor.
+The updated version of this project incorportating the dice roll history as a graph in the GUI is now live. This has not been redone as a standalone executable, but should work in a code editor. A picture depicting the new version is uploaded is "DiceGUIversion2".
